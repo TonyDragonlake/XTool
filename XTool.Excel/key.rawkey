@@ -1,0 +1,12 @@
+# Strong Name Signiture Key
+snk:
+  name:
+    - "fantazia-xtool-excel"
+  key:
+    - "SNK_fantazia_xtool_excel_0428"
+# Click Once Signiture Key
+click-once:
+  name:
+    - "XTool.Excel_TemporaryKey"
+  key:
+    - "clkone_fantazia_xtool_excel_0428"

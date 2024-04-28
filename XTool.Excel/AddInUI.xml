@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="OnAddInUILoad" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+	<!--<commands>
+		<command idMso="Filter" onAction="OnToggleCommandAction"/>
+		<command idMso="SortClear" onAction="OnCommandAction"/>
+		--><!--<command idMso="SheetInsert" onAction="OnCommandAction"/>
+		<command idMso="SheetDelete" onAction="OnCommandAction"/>
+		<command idMso="SheetUnhide" onAction="OnCommandAction"/>
+		<command idMso="SheetMoveOrCopy" onAction="OnCommandAction"/>--><!--
+		--><!--<command idMso="SheetRename" enabled="false" onAction="OnCommandAction"/>--><!--
+	</commands>-->
+	<ribbon>
+		<tabs>
+			<tab idMso="TabHome">
+				<group id="Group.TabHome.XTool" getLabel="GetLabel">
+					<button id="Button.Group.Image.FilterAssistant" imageMso ="FilterToggleFilter" size="large" onAction="OnAction" getLabel="GetLabel"/>
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

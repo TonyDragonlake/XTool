@@ -1,0 +1,272 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!--  Neutral  -->
+
+	<SolidColorBrush x:Key="DBrush.Content.Fill.Neutral.Primary.Normal" Color="#FF000000" />
+	<SolidColorBrush x:Key="DBrush.Content.Fill.Neutral.Secondary.Normal" Color="#E4000000" />
+	<SolidColorBrush x:Key="DBrush.Content.Fill.Neutral.Tertiary.Normal" Color="#9E000000" />
+	<SolidColorBrush x:Key="DBrush.Content.Fill.NeutralOnAccent.Primary.Normal" Color="#FFFFFFFF" />
+	<SolidColorBrush x:Key="DBrush.Content.Fill.NeutralOnAccent.Secondary.Normal" Color="#E4FFFFFF" />
+	<SolidColorBrush x:Key="DBrush.Content.Fill.NeutralOnAccent.Tertiary.Normal" Color="#B3FFFFFF" />
+
+	<!--  Content.Fill.Neutral.Hover is not used  -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Neutral.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Neutral.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Neutral.Tertiary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.NeutralOnAccent.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.NeutralOnAccent.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.NeutralOnAccent.Tertiary.Hover" />
+	-->
+
+	<!--  Content.Fill.Neutral.Actived is not used  -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Neutral.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Neutral.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Neutral.Tertiary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.NeutralOnAccent.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.NeutralOnAccent.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.NeutralOnAccent.Tertiary.Actived" />
+	-->
+
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Primary.Normal" Color="#B3FFFFFF" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Secondary.Normal" Color="#80F9F9F9" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Tertiary.Normal" Color="#4DF9F9F9" />
+
+	<SolidColorBrush x:Key="DBrush.Container.Stroke.Neutral.Primary.Normal" Color="#0F000000" />
+	<SolidColorBrush x:Key="DBrush.Container.Stroke.Neutral.Secondary.Normal" Color="#29000000" />
+	<SolidColorBrush x:Key="DBrush.Container.Stroke.Neutral.Tertiary.Normal" Color="#37000000" />
+
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Primary.Hover" Color="#4CCCCCCC" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Secondary.Hover" Color="#80C7C7C7" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Tertiary.Hover" Color="#4DC7C7C7" />
+
+	<!--  Container.Stroke.Neutral.Hover is not used  -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Neutral.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Neutral.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Neutral.Tertiary.Hover" />
+	-->
+
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Primary.Actived" Color="#4C999999" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Secondary.Actived" Color="#80959595" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Neutral.Tertiary.Actived" Color="#4D959595" />
+
+	<!--  Container.Stroke.Neutral.Actived is not used  -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Neutral.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Neutral.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Neutral.Tertiary.Actived" />
+	-->
+	<!--  Accent  -->
+
+	<!--
+		* Light *
+		Accent3 = #98ecfe;
+		Accent2 = #60ccfe;
+		Accent1 = #0093f9;
+		* Base *
+		Accent0 = #0078d4;
+		* Dark *
+		Accent1  = #005eb7;
+		Accent2  = #003d92;
+		Accent3  = #001968;
+		
+		AccentOnAccent = MixColor(ReversedThemeColor(CurrentTheme.Accent, index),IsLightTheme?White:Black,0.7);
+	-->
+
+	<SolidColorBrush x:Key="DBrush.Content.Fill.Accent.Primary.Normal" Color="#FF001968" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Secondary.Normal" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Tertiary.Normal" /> -->
+	<SolidColorBrush x:Key="DBrush.Content.Fill.AccentOnAccent.Primary.Normal" Color="#FFE0F9FF" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Secondary.Normal" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Tertiary.Normal" /> -->
+
+	<!--  Content.Fill.Accent.Hover is not used  -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Tertiary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Tertiary.Hover" />
+	-->
+
+	<!--  Content.Fill.Accent.Hover is not used  -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.Accent.Tertiary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Content.Fill.AccentOnAccent.Tertiary.Actived" />
+	-->
+
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Accent.Primary.Normal" Color="#FFE0F9FF" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.Accent.Secondary.Normal" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.Accent.Tertiary.Normal" /> -->
+
+	<SolidColorBrush x:Key="DBrush.Container.Stroke.Accent.Primary.Normal" Color="#3398ECFE" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Secondary.Normal" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Tertiary.Normal" /> -->
+
+	<!--  MIX WITH 10% BLACK  -->
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Accent.Primary.Hover" Color="#FFcae0e6" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.Accent.Secondary.Hover" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.Accent.Tertiary.Hover" /> -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Tertiary.Hover" />
+	-->
+	<!--  MIX WITH 30% BLACK  -->
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Accent.Primary.Actived" Color="#FF9daeb3" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.Accent.Secondary.Actived" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.Accent.Tertiary.Actived" /> -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.Accent.Tertiary.Actived" />
+	-->
+
+	<SolidColorBrush x:Key="DBrush.Container.Fill.AccentOnAccent.Primary.Normal" Color="#FF005EB7" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.AccentOnAccent.Secondary.Normal" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.AccentOnAccent.Tertiary.Normal" /> -->
+
+	<SolidColorBrush x:Key="DBrush.Container.Stroke.AccentOnAccent.Primary.Normal" Color="#33005EB7" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Secondary.Normal" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Tertiary.Normal" /> -->
+	<!--  MIX WITH 10% BLACK  -->
+	<SolidColorBrush x:Key="DBrush.Container.Fill.AccentOnAccent.Primary.Hover" Color="#FF0055a5" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.AccentOnAccent.Secondary.Hover" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.AccentOnAccent.Tertiary.Hover" /> -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Primary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Secondary.Hover" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Tertiary.Hover" />
+	-->
+	<!--  MIX WITH 30% BLACK  -->
+	<SolidColorBrush x:Key="DBrush.Container.Fill.AccentOnAccent.Primary.Actived" Color="#FF004280" />
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.AccentOnAccent.Secondary.Actived" /> -->
+	<!-- <SolidColorBrush	x:Key="DBrush.Container.Fill.AccentOnAccent.Tertiary.Actived" /> -->
+
+	<!--
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Primary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Secondary.Actived" />
+	<SolidColorBrush	x:Key="DBrush.Container.Stroke.AccentOnAccent.Tertiary.Actived" />
+	-->
+
+	<!--  Signal  -->
+	<!--  DBrush.SignalContent.Fill.Attention is same with Content.Fill.Accent.Primary.Normal  -->
+	<!--
+		<SolidColorBrush	x:Key="DBrush.SignalContent.Fill.Attention" />
+	-->
+	<SolidColorBrush x:Key="DBrush.SignalContent.Fill.Success" Color="#FF0F7B0F" />
+	<SolidColorBrush x:Key="DBrush.SignalContent.Fill.Caution" Color="#FF9D5D00" />
+	<SolidColorBrush x:Key="DBrush.SignalContent.Fill.Critical" Color="#FFC42B1C" />
+	<SolidColorBrush x:Key="DBrush.SignalContainer.Fill.Attention" Color="#FFF7F7F7" />
+	<SolidColorBrush x:Key="DBrush.SignalContainer.Fill.Success" Color="#FFDFF6DD" />
+	<SolidColorBrush x:Key="DBrush.SignalContainer.Fill.Caution" Color="#FFFFF4CE" />
+	<SolidColorBrush x:Key="DBrush.SignalContainer.Fill.Critical" Color="#FFFDE7E9" />
+
+	<!--  Surface  -->
+
+	<SolidColorBrush x:Key="DBrush.Surface.Fill.Solid" Color="#FFF3F3F3" />
+	<SolidColorBrush x:Key="DBrush.Surface.Fill.Layer" Color="#80FFFFFF" />
+	<SolidColorBrush x:Key="DBrush.Surface.Fill.Mask" Color="#4D000000" />
+	<SolidColorBrush x:Key="DBrush.Surface.Fill.Highlight" Color="#FFFFFFFF" />
+
+	<!--  Disabled  -->
+
+	<SolidColorBrush x:Key="DBrush.Content.Fill.Disabled" Color="#FF808080" />
+	<SolidColorBrush x:Key="DBrush.Container.Fill.Disabled" Color="#4DF9F9F9" />
+	<SolidColorBrush x:Key="DBrush.Container.Stroke.Disabled" Color="#5C000000" />
+
+	<SolidColorBrush x:Key="DBrush.Selection.Fill.Primary" Color="#7F005EB7" />
+
+	<Color x:Key="DColor.Content.Fill.Accent.Primary.Normal">
+		#FF001968
+	</Color>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ResourceDictionary>
+
+
+
+
+<!--
+	Dark
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.BaseColor.Background" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.BaseColor.Foreground" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.BaseColor.Background.Inactive" />
+	<SolidColorBrush	Color="#FFA6A6A6"	x:Key="DBrush.BaseColor.Foreground.Inactive" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor01.Background.Normal" />
+	<SolidColorBrush	Color="#FF6800FF"	x:Key="DBrush.ThemeColor01.Foreground.Normal" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor01.Background.Hover" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor01.Foreground.Hover" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor01.Background.Focus" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor01.Foreground.Focus" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor02.Background.Normal" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor02.Foreground.Normal" />
+	<SolidColorBrush	Color="#CC3C3C3C"	x:Key="DBrush.ThemeColor02.Background.Hover" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor02.Foreground.Hover" />
+	<SolidColorBrush	Color="#CC636363"	x:Key="DBrush.ThemeColor02.Background.Focus" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor02.Foreground.Focus" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor03.Background.Normal" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor03.Foreground.Normal" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor03.Background.Hover" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor03.Foreground.Hover" />
+	<SolidColorBrush	Color="#FF0A0A08"	x:Key="DBrush.ThemeColor03.Background.Focus" />
+	<SolidColorBrush	Color="#FFF0F0E6"	x:Key="DBrush.ThemeColor03.Foreground.Focus" />
+	
+	
+	Light
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.BaseColor.Background" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.BaseColor.Foreground" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.BaseColor.Background.Inactive" />
+	<SolidColorBrush	Color="#FFA6A6A6"	x:Key="DBrush.BaseColor.Foreground.Inactive" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor01.Background.Normal" />
+	<SolidColorBrush	Color="#FF00AEFF"	x:Key="DBrush.ThemeColor01.Foreground.Normal" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor01.Background.Hover" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor01.Foreground.Hover" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor01.Background.Focus" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor01.Foreground.Focus" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor02.Background.Normal" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor02.Foreground.Normal" />
+	<SolidColorBrush	Color="#CCD3D3D3"	x:Key="DBrush.ThemeColor02.Background.Hover" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor02.Foreground.Hover" />
+	<SolidColorBrush	Color="#CCB4B4B4"	x:Key="DBrush.ThemeColor02.Background.Focus" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor02.Foreground.Focus" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor03.Background.Normal" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor03.Foreground.Normal" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor03.Background.Hover" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor03.Foreground.Hover" />
+	<SolidColorBrush	Color="#FFFFFFFF"	x:Key="DBrush.ThemeColor03.Background.Focus" />
+	<SolidColorBrush	Color="#FF000000"	x:Key="DBrush.ThemeColor03.Foreground.Focus" />-->

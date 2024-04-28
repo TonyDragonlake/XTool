@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LanguagePackageSchema"
+    targetNamespace="http://office.xtool.com/LanguagePackageSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://office.xtool.com/LanguagePackageSchema.xsd"
+    xmlns:mstns="http://office.xtool.com/LanguagePackageSchema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:element name="langpkg">
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element name ="text" >
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="txtKey" type="xs:string" />
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name ="langKey" type="xs:string" use="required"/>
+			<xs:attribute name ="langName" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

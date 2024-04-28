@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4FC3A451-8166-41E8-AB3A-6BE53FFFFDAF}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>XTool.Wpf</RootNamespace>
+    <AssemblyName>XTool.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>fantazia-xtool-wpf.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\ButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ComboBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ExpanderStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\GridSplitterStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\MenuStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\RepeatButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ScrollViewerStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\SliderStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToggleButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToolTipStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TreeViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Templates\DialogTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ClippedContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\DWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\InfiniteProgress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\MessageHost.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeBrushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FantaziaDesign.Wpf\Controls\BorderClipper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ClippedContentControl.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\Clipper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ContainerStyleSelector.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ContainerTemplateSelector.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ContentTemplateSelector.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\FrameworkUtil.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\InfiniteProgress.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ItemsControlHelper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\Layerable.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\LayersPanel.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\MessageContainer.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\MessageHost.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ProgressAssist.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\ScrollablePanel.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\Selectable.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\SimplePanel.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\SlotHole.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\Attachable.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\ControlMetrics.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\SelectionOption.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\SelectionResultType.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Controls\TemplatePartDictionary.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\BooleanToVisualVisibilityConverter.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\IBindingOperationProvider.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\ShapeHelper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\TimeWalker.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\VisualStateHelper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Core\VisualTreeExtension.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindow.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindowButton.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindowHelper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindowMessageHandlers.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindowNonClientManager.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindowProcedure.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\DWindowProcedureEventArgs.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\IDWindowCaptionControl.cs" />
+    <Compile Include="FantaziaDesign.Wpf\DWindowStyle\IDWindowNonClientHitTestHandler.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Graphics\TextResourceExtension.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Graphics\WpfGraphicsUtil.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Input\CommandHelper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Input\InputHelper.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Input\MultiCommandSource.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Interactivity\EventHandlerCommandAction.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Interactivity\Interactivity.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Markup\DynamicResourceBinding.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Markup\TextResourceExtension.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Media\GeometryUtil.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Message\AcceptCancelDialog.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Message\MessageCenter.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Message\YesNoCancelDialog.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Theme\ThemeManager.cs" />
+    <Compile Include="FantaziaDesign\Core\HashSetHelper.cs" />
+    <Compile Include="FantaziaDesign\Core\IDeepCopyable.cs" />
+    <Compile Include="FantaziaDesign\Core\IPseudoArray.cs" />
+    <Compile Include="FantaziaDesign\Core\Marshallers.cs" />
+    <Compile Include="FantaziaDesign\Core\Pairs.cs" />
+    <Compile Include="FantaziaDesign\Core\Size.cs" />
+    <Compile Include="FantaziaDesign\Core\Traversers.cs" />
+    <Compile Include="FantaziaDesign\Core\Vector.cs" />
+    <Compile Include="FantaziaDesign\Core\WeakDelegate.cs" />
+    <Compile Include="FantaziaDesign\Events\AsyncEventHandler.cs" />
+    <Compile Include="FantaziaDesign\Events\IEventArguments.cs" />
+    <Compile Include="FantaziaDesign\Events\WeakCancelEventArgs.cs" />
+    <Compile Include="FantaziaDesign\Events\WeakEvent.cs" />
+    <Compile Include="FantaziaDesign\Events\WeakEventArgs.cs" />
+    <Compile Include="FantaziaDesign\Graphics\Brushes.cs" />
+    <Compile Include="FantaziaDesign\Input\CollectionCommandInterfaces.cs" />
+    <Compile Include="FantaziaDesign\Input\RelayCommands.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Windows\ApplicationEnvironment.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Windows\SystemThemeInfo.cs" />
+    <Compile Include="FantaziaDesign.Wpf\Windows\WindowsExtension.cs" />
+    <Compile Include="FantaziaDesign\Core\BasicStruct.cs" />
+    <Compile Include="FantaziaDesign\Core\CollectionHelper.cs" />
+    <Compile Include="FantaziaDesign\Core\Color.cs" />
+    <Compile Include="FantaziaDesign\Core\CompatibleByte.cs" />
+    <Compile Include="FantaziaDesign\Core\CompatibleInt16.cs" />
+    <Compile Include="FantaziaDesign\Core\CompatibleInt32.cs" />
+    <Compile Include="FantaziaDesign\Core\CompatibleInt64.cs" />
+    <Compile Include="FantaziaDesign\Core\FunctionalComparers.cs" />
+    <Compile Include="FantaziaDesign\Core\IntegerRef.cs" />
+    <Compile Include="FantaziaDesign\Core\IRuntimeUnique.cs" />
+    <Compile Include="FantaziaDesign\Core\ISealable.cs" />
+    <Compile Include="FantaziaDesign\Core\IUnitConverter.cs" />
+    <Compile Include="FantaziaDesign\Core\IValueContext.cs" />
+    <Compile Include="FantaziaDesign\Core\IValueContextProvider.cs" />
+    <Compile Include="FantaziaDesign\Core\IValueConverter.cs" />
+    <Compile Include="FantaziaDesign\Core\Location.cs" />
+    <Compile Include="FantaziaDesign\Core\NumberTypeUtil.cs" />
+    <Compile Include="FantaziaDesign\Core\ObjectHelper.cs" />
+    <Compile Include="FantaziaDesign\Core\Point.cs" />
+    <Compile Include="FantaziaDesign\Core\Rect.cs" />
+    <Compile Include="FantaziaDesign\Core\ReflectionUtil.cs" />
+    <Compile Include="FantaziaDesign\Core\RegexUtil.cs" />
+    <Compile Include="FantaziaDesign\Core\SerializableElement.cs" />
+    <Compile Include="FantaziaDesign\Core\SnowflakeUId.cs" />
+    <Compile Include="FantaziaDesign\Core\StringEqualityComparers.cs" />
+    <Compile Include="FantaziaDesign\Core\StringParsers.cs" />
+    <Compile Include="FantaziaDesign\Core\StringRef.cs" />
+    <Compile Include="FantaziaDesign\Core\Thickness.cs" />
+    <Compile Include="FantaziaDesign\Core\TypedRef.cs" />
+    <Compile Include="FantaziaDesign\Core\UniqueSet.cs" />
+    <Compile Include="FantaziaDesign\Interop\COM\CommonUUID.cs" />
+    <Compile Include="FantaziaDesign\Interop\COM\Dialogs.cs" />
+    <Compile Include="FantaziaDesign\Interop\COM\WType.cs" />
+    <Compile Include="FantaziaDesign\Interop\Dwmapi.cs" />
+    <Compile Include="FantaziaDesign\Interop\Dwmapi.DWM_BLURBEHIND.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.BITMAP.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.BITMAPINFO.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.BITMAPINFOHEADER.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.DeviceCaps.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.DIB_USAGE.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.RGBQUAD.cs" />
+    <Compile Include="FantaziaDesign\Interop\Gdi32.ROP_CODE.cs" />
+    <Compile Include="FantaziaDesign\Interop\Ntdll.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.CS.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.GWL.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.HT.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.MINMAXINFO.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.MONITORINFOEX.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.MONITOR_DEFAULTTO.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.MSG.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.NCCALCSIZE_PARAMS.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.SC.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.SM.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.SPI.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.SW.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.SWP.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.TME.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.TRACKMOUSEEVENT.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WA.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WDA.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WINDOWPLACEMENT.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WINDOWPOS.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WM.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WMSZ.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WNDCLASSEXW.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WPF.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WS.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WS_EX.cs" />
+    <Compile Include="FantaziaDesign\Interop\User32.WVR.cs" />
+    <Compile Include="FantaziaDesign\Interop\Win32Native.cs" />
+    <Compile Include="FantaziaDesign\Model\CollectionNotifiers.cs" />
+    <Compile Include="FantaziaDesign\Model\ControlModel.cs" />
+    <Compile Include="FantaziaDesign\Model\Document\DocumentType.cs" />
+    <Compile Include="FantaziaDesign\Model\Message\IMessageModel.cs" />
+    <Compile Include="FantaziaDesign\Model\Message\MessageHostManager.cs" />
+    <Compile Include="FantaziaDesign\Model\Message\MessageModel.cs" />
+    <Compile Include="FantaziaDesign\Model\Message\MessageStatus.cs" />
+    <Compile Include="FantaziaDesign\Model\Message\SimpleDialogBase.cs" />
+    <Compile Include="FantaziaDesign\Model\NotifiableModel.cs" />
+    <Compile Include="FantaziaDesign\Model\PropertyNotifier.cs" />
+    <Compile Include="FantaziaDesign\Model\PropertyState.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\INotifyResourceChanged.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\IResourceContainer.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\IResourceNotifier.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\IResourceNotifierFactory.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\IResourceProvider.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\LanguagePackage.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\LanguagePackageManager.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\ResourceChangedEventArgs.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\ResourceNotifier.cs" />
+    <Compile Include="FantaziaDesign\Resourcable\ResourceNotifierFactories.cs" />
+    <Compile Include="FantaziaDesign\Theme\ThemeDef.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="fantazia-xtool-wpf.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FantaziaDesign\Interop\Win32\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

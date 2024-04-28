@@ -1,0 +1,1393 @@
+﻿<WinLib:DWindow
+	x:Class="XTool.Windows.FilterAssistantWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Controls="clr-namespace:FantaziaDesign.Wpf.Controls;assembly=XTool.Wpf"
+	xmlns:Core="clr-namespace:FantaziaDesign.Wpf.Core;assembly=XTool.Wpf"
+	xmlns:Markup="clr-namespace:FantaziaDesign.Wpf.Markup;assembly=XTool.Wpf"
+	xmlns:WinLib="clr-namespace:FantaziaDesign.Wpf.DWindowStyle;assembly=XTool.Wpf"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Title="{Markup:TextResource Key=Title_XToolFilterAssistant,
+	                            GroupName=UITextResource,
+	                            DefaultValue=XTool - Filter Assistant}"
+	Width="1200"
+	Height="600"
+	MinWidth="880"
+	MinHeight="440"
+	Background="{DynamicResource DBrush.Surface.Fill.Solid}"
+	FontFamily="Segoe UI, Microsoft YaHei UI"
+	WindowStartupLocation="CenterOwner"
+	mc:Ignorable="d">
+	<Window.Resources>
+		<FontFamily x:Key="Segoe Fluent Icons">
+			pack://application:,,,/XTool.Excel;component/Assets/Fonts/#Segoe Fluent Icons
+		</FontFamily>
+		<Core:BooleanToTargetObjectConverter
+			x:Key="boolToCriteriaDisplayModeConverter"
+			FalseTarget="&#xE8FD;"
+			TrueTarget="&#xEA37;" />
+		<Core:BooleanToVisualVisibilityConverter x:Key="boolToVisibleConverter" />
+		<Core:BooleanToVisualVisibilityConverter x:Key="boolToVisibleWithPlaceholderConverter" FalseTarget="Hidden" />
+		<Core:BooleanToVisualVisibilityConverter
+			x:Key="boolToVisibleReversedConverter"
+			FalseTarget="Visible"
+			TrueTarget="Collapsed" />
+		<Controls:ContentTemplateSelector x:Key="contentTemplateSelector" />
+		<Core:BooleanToTargetObjectConverter
+			x:Key="boolToReversedBooleanConverter"
+			FalseTarget="True"
+			TrueTarget="False" />
+		<!--  Criteria Items Data Templates  -->
+		<DataTemplate x:Key="CriteriaItemsTemplate.NoSelect">
+			<TextBlock
+				Margin="8"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				FontSize="16"
+				FontWeight="Bold"
+				Foreground="Gray"
+				Opacity="0.5"
+				Text="{Markup:TextResource Key=Content_NoFilterFieldSelected,
+				                           GroupName=UITextResource,
+				                           DefaultValue=No filter field selected}"
+				TextWrapping="WrapWithOverflow" />
+		</DataTemplate>
+		<DataTemplate x:Key="CriteriaItemsTemplate.EmptySingleSelect">
+			<TextBlock
+				Margin="8"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				FontSize="16"
+				FontWeight="Bold"
+				Foreground="Gray"
+				Opacity="0.5"
+				TextWrapping="WrapWithOverflow">
+				<TextBlock.Text>
+					<Markup:TextResource
+						Key="Content_EmptySingleFilterFieldSelected"
+						DefaultValue="Selected field has no criteria item, add one criteria first"
+						GroupName="UITextResource" />
+				</TextBlock.Text>
+			</TextBlock>
+		</DataTemplate>
+		<DataTemplate x:Key="CriteriaItemsTemplate.Common">
+			<Grid>
+				<TextBox
+					AcceptsReturn="True"
+					BorderBrush="Transparent"
+					BorderThickness="0"
+					HorizontalScrollBarVisibility="Auto"
+					Text="{Binding TextContent}"
+					VerticalScrollBarVisibility="Auto"
+					Visibility="{Binding IsTextContentActived, Converter={StaticResource boolToVisibleConverter}}" />
+				<ListBox
+					HorizontalContentAlignment="Stretch"
+					Controls:Selectable.IsSelectionPerceptionEnabled="True"
+					Controls:Selectable.MultipleSelection="{Binding Selection, Mode=OneWayToSource}"
+					Background="{DynamicResource DBrush.Container.Fill.Neutral.Primary.Normal}"
+					BorderThickness="0"
+					ItemContainerStyle="{DynamicResource DStyle.ListBoxItem.Indicated}"
+					ItemsSource="{Binding}"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					SelectionMode="Extended"
+					VirtualizingPanel.VirtualizationMode="Recycling"
+					Visibility="{Binding IsTextContentActived, Converter={StaticResource boolToVisibleReversedConverter}}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid MinHeight="36" Margin="4,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+								<Controls:BorderClipper
+									x:Name="border"
+									Width="24"
+									Height="24"
+									Margin="4,0"
+									Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+									BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+									BorderThickness="1"
+									CornerRadius="4"
+									IsChildClippingEnabled="True"
+									LayerBrush="{DynamicResource DBrush.Selection.Fill.Primary}"
+									LayerOpacity="0">
+									<TextBlock
+										x:Name="contentTxt"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										FontFamily="{DynamicResource Segoe Fluent Icons}"
+										FontSize="16"
+										Foreground="Transparent"
+										Text="&#xE73E;" />
+								</Controls:BorderClipper>
+								<TextBox
+									x:Name="txtBox"
+									Grid.Column="1"
+									Margin="4,0"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="Center"
+									VerticalContentAlignment="Center"
+									Core:Attachable.CornerRadius="4"
+									Text="{Binding Value}" />
+							</Grid>
+							<DataTemplate.Triggers>
+								<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+									<DataTrigger.EnterActions>
+										<BeginStoryboard>
+											<Storyboard>
+												<DoubleAnimation
+													Storyboard.TargetName="border"
+													Storyboard.TargetProperty="LayerOpacity"
+													To="0.5"
+													Duration="0:0:0.2">
+													<DoubleAnimation.EasingFunction>
+														<CubicEase EasingMode="EaseIn" />
+													</DoubleAnimation.EasingFunction>
+												</DoubleAnimation>
+											</Storyboard>
+										</BeginStoryboard>
+									</DataTrigger.EnterActions>
+									<DataTrigger.ExitActions>
+										<BeginStoryboard>
+											<Storyboard>
+												<DoubleAnimation
+													Storyboard.TargetName="border"
+													Storyboard.TargetProperty="LayerOpacity"
+													To="0"
+													Duration="0:0:0.2">
+													<DoubleAnimation.EasingFunction>
+														<CubicEase EasingMode="EaseOut" />
+													</DoubleAnimation.EasingFunction>
+												</DoubleAnimation>
+											</Storyboard>
+										</BeginStoryboard>
+									</DataTrigger.ExitActions>
+									<Setter TargetName="contentTxt" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}" />
+								</DataTrigger>
+							</DataTemplate.Triggers>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="CriteriaItemsTemplate.MultiSelect">
+			<TextBlock
+				Margin="8"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				FontSize="16"
+				FontWeight="Bold"
+				Foreground="Gray"
+				Opacity="0.5"
+				Text="{Markup:TextResource Key=Content_MultiFilterFieldsSelected,
+				                           GroupName=UITextResource,
+				                           DefaultValue=Multiple filter fields selected}"
+				TextWrapping="WrapWithOverflow" />
+		</DataTemplate>
+		<!--  Dialog Data Templates  -->
+		<DataTemplate x:Key="FilterConfigurationsDialogTemplate">
+			<Grid
+				MaxHeight="380"
+				Margin="8"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Stretch">
+				<Border
+					Background="{DynamicResource DBrush.Surface.Fill.Solid}"
+					BorderBrush="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}"
+					BorderThickness="1"
+					CornerRadius="8">
+					<UIElement.Effect>
+						<DropShadowEffect
+							BlurRadius="30"
+							Direction="270"
+							Opacity="0.43"
+							ShadowDepth="3"
+							Color="{DynamicResource DColor.Content.Fill.Accent.Primary.Normal}" />
+					</UIElement.Effect>
+				</Border>
+				<Grid Margin="8">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="48" />
+						<RowDefinition />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Grid.ColumnSpan="2"
+						Margin="4"
+						VerticalAlignment="Center"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=Title_SelectConfiguration,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Select Configuration}" />
+					<Controls:BorderClipper
+						Grid.Row="1"
+						Grid.ColumnSpan="2"
+						Margin="8,0"
+						Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="8"
+						DataContext="{Binding ConfigurationsManager}"
+						IsChildClippingEnabled="True">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Grid Height="40">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBlock
+									Margin="8,0"
+									VerticalAlignment="Center"
+									FontSize="14"
+									FontWeight="Bold"
+									Text="{Markup:TextResource Key=Header_ConfigurationsList,
+									                           GroupName=UITextResource,
+									                           DefaultValue=Configurations List}" />
+								<Controls:BorderClipper
+									Grid.Column="1"
+									Height="28"
+									Margin="8,0"
+									VerticalAlignment="Center"
+									BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+									BorderThickness="1"
+									CornerRadius="4"
+									IsChildClippingEnabled="True">
+									<Button
+										Width="28"
+										Padding="0"
+										BorderThickness="0"
+										Command="{Binding AddExistedConfigurationsCommand}"
+										Style="{DynamicResource DStyles.Button.Icon}"
+										ToolTip="{Markup:TextResource Key=ToolTip_AddExistedConfigurations,
+										                              GroupName=UITextResource,
+										                              DefaultValue=Add existed configuration}"
+										ToolTipService.InitialShowDelay="1000">
+										<TextBlock
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											FontFamily="{DynamicResource Segoe Fluent Icons}"
+											FontSize="16"
+											Text="&#xECC8;" />
+									</Button>
+								</Controls:BorderClipper>
+
+							</Grid>
+							<Border
+								Grid.Row="1"
+								Height="1"
+								Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+							<ListBox
+								Grid.Row="2"
+								Width="480"
+								Background="{DynamicResource DBrush.Container.Fill.Neutral.Primary.Normal}"
+								BorderThickness="0"
+								ItemContainerStyle="{DynamicResource DStyle.ListBoxItem.Indicated}"
+								ItemsSource="{Binding}"
+								ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+								SelectedIndex="{Binding SelectedIndex}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Grid MinHeight="36">
+											<TextBlock
+												x:Name="textContent"
+												Grid.Column="1"
+												Margin="4,0"
+												VerticalAlignment="Center"
+												Text="{Binding FileInfo.Name}"
+												TextTrimming="CharacterEllipsis"
+												ToolTip="{Binding FileInfo.FullName}"
+												ToolTipService.InitialShowDelay="1000" />
+										</Grid>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</Grid>
+
+					</Controls:BorderClipper>
+					<StackPanel
+						Grid.Row="2"
+						Grid.Column="1"
+						Margin="0,4"
+						HorizontalAlignment="Right"
+						Orientation="Horizontal">
+						<Button
+							Margin="4"
+							Core:Attachable.CornerRadius="4"
+							Command="{Binding AcceptCommand}"
+							Content="{Markup:TextResource Key=Dialog_Accept,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Accept}" />
+						<Button
+							Margin="4"
+							Core:Attachable.CornerRadius="4"
+							Command="{Binding CancelCommand}"
+							Content="{Markup:TextResource Key=Dialog_Cancel,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Cancel}" />
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="AboutDialogTemplate">
+			<Grid
+				MaxHeight="380"
+				Margin="8"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+				<Border
+					Background="{DynamicResource DBrush.Surface.Fill.Solid}"
+					BorderBrush="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}"
+					BorderThickness="1"
+					CornerRadius="8">
+					<UIElement.Effect>
+						<DropShadowEffect
+							BlurRadius="30"
+							Direction="270"
+							Opacity="0.43"
+							ShadowDepth="3"
+							Color="{DynamicResource DColor.Content.Fill.Accent.Primary.Normal}" />
+					</UIElement.Effect>
+				</Border>
+				<Grid Margin="8">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="48" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<TextBlock
+						Margin="4"
+						VerticalAlignment="Center"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=MenuHeader_AboutXTool,
+						                           GroupName=UITextResource,
+						                           DefaultValue=About XTool}" />
+					<Controls:BorderClipper
+						Grid.Row="1"
+						Margin="8,0,8,8"
+						Padding="16"
+						Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="8">
+						<StackPanel Orientation="Vertical">
+							<TextBlock
+								Margin="8,8,8,4"
+								VerticalAlignment="Center"
+								FontSize="18"
+								FontWeight="Bold"
+								Foreground="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}"
+								Text="{Binding ProductName}" />
+							<Border
+								Margin="8,4,8,2"
+								Padding="4,2,4,2"
+								HorizontalAlignment="Left"
+								Background="{DynamicResource DBrush.Container.Fill.Accent.Primary.Normal}"
+								CornerRadius="4">
+								<TextBlock
+									VerticalAlignment="Center"
+									FontSize="12"
+									FontWeight="Bold"
+									Foreground="{DynamicResource DBrush.Container.Fill.AccentOnAccent.Primary.Normal}"
+									Text="{Binding Version}" />
+							</Border>
+							<TextBlock
+								Margin="8,2,8,4"
+								VerticalAlignment="Center"
+								FontSize="12"
+								Text="{Binding Copyright}" />
+						</StackPanel>
+
+					</Controls:BorderClipper>
+				</Grid>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="SettingsDialogTemplate">
+			<Grid
+				MaxHeight="380"
+				Margin="8"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+				<Border
+					Background="{DynamicResource DBrush.Surface.Fill.Solid}"
+					BorderBrush="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}"
+					BorderThickness="1"
+					CornerRadius="8">
+					<UIElement.Effect>
+						<DropShadowEffect
+							BlurRadius="30"
+							Direction="270"
+							Opacity="0.43"
+							ShadowDepth="3"
+							Color="{DynamicResource DColor.Content.Fill.Accent.Primary.Normal}" />
+					</UIElement.Effect>
+				</Border>
+				<Grid Margin="8">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="48" />
+						<RowDefinition />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<TextBlock
+						Margin="4"
+						VerticalAlignment="Center"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=MenuHeader_Settings,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Settings}" />
+					<Controls:BorderClipper
+						Grid.Row="1"
+						MinWidth="400"
+						Margin="8,0"
+						Padding="8"
+						Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="8">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<TextBlock
+								Grid.ColumnSpan="2"
+								Margin="4"
+								VerticalAlignment="Center"
+								FontWeight="Bold"
+								Text="{Markup:TextResource Key=Setting_ThemeSetting,
+								                           GroupName=UITextResource,
+								                           DefaultValue=Theme Setting}" />
+							<TextBlock
+								Grid.Row="1"
+								Margin="12,4,4,4"
+								VerticalAlignment="Center"
+								Text="{Markup:TextResource Key=Setting_FollowSystemTheme,
+								                           GroupName=UITextResource,
+								                           DefaultValue=Follow system theme}" />
+							<ToggleButton
+								Grid.Row="1"
+								Grid.Column="1"
+								Margin="4"
+								IsChecked="{Binding IsFollowingSystemTheme}"
+								Style="{DynamicResource DStyles.ToggleButton.Switch}" />
+							<TextBlock
+								Grid.Row="2"
+								Margin="12,4,4,4"
+								VerticalAlignment="Center"
+								Text="{Markup:TextResource Key=Setting_SwitchTheme,
+								                           GroupName=UITextResource,
+								                           DefaultValue=Switch light or dark theme}" />
+							<ToggleButton
+								Grid.Row="2"
+								Grid.Column="1"
+								Margin="4"
+								IsChecked="{Binding IsUsingLightTheme}"
+								IsEnabled="{Binding IsFollowingSystemTheme, Converter={StaticResource boolToReversedBooleanConverter}}"
+								Style="{DynamicResource DStyles.ToggleButton.Switch}" />
+							<Border
+								Grid.Row="3"
+								Grid.ColumnSpan="2"
+								Height="1"
+								Margin="4,8"
+								Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+							<TextBlock
+								Grid.Row="4"
+								Grid.ColumnSpan="2"
+								Margin="4"
+								VerticalAlignment="Center"
+								FontWeight="Bold"
+								Text="{Markup:TextResource Key=Setting_LanguageSetting,
+								                           GroupName=UITextResource,
+								                           DefaultValue=Language Setting}" />
+							<TextBlock
+								Grid.Row="5"
+								Margin="12,4,4,4"
+								VerticalAlignment="Center"
+								Text="{Markup:TextResource Key=Setting_CurrentLanguage,
+								                           GroupName=UITextResource,
+								                           DefaultValue=Current language}" />
+							<ComboBox
+								Grid.Row="5"
+								Grid.Column="1"
+								Margin="4"
+								Core:Attachable.CornerRadius="4"
+								ItemsSource="{Binding LanguagePackageNames}"
+								SelectedIndex="{Binding CurrentLanguageIndex}" />
+						</Grid>
+					</Controls:BorderClipper>
+					<StackPanel
+						Grid.Row="2"
+						Grid.Column="1"
+						Margin="0,4"
+						HorizontalAlignment="Right"
+						Orientation="Horizontal">
+						<Button
+							Margin="4"
+							Core:Attachable.CornerRadius="4"
+							Command="{Binding AcceptCommand}"
+							Content="{Markup:TextResource Key=Dialog_Accept,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Accept}" />
+						<Button
+							Margin="4"
+							Core:Attachable.CornerRadius="4"
+							Command="{Binding CancelCommand}"
+							Content="{Markup:TextResource Key=Dialog_Cancel,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Cancel}" />
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</DataTemplate>
+
+	</Window.Resources>
+	<Grid TextElement.FontSize="14" TextElement.Foreground="{DynamicResource DBrush.Content.Fill.Neutral.Primary.Normal}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="246" />
+			<ColumnDefinition Width="246" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="32" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid
+			Grid.ColumnSpan="3"
+			Margin="0,0,138,0"
+			WinLib:DWindowNonClientManager.CaptionRole="Client">
+			<Menu
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Background="Transparent">
+				<MenuItem
+					Width="46"
+					Height="32"
+					HorizontalContentAlignment="Center">
+					<MenuItem.Header>
+						<TextBlock
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontFamily="{DynamicResource Segoe Fluent Icons}"
+							FontSize="16"
+							Text="&#xE70D;" />
+					</MenuItem.Header>
+					<MenuItem Command="{Binding OpenSettingsDialogCommand}" Header="{Markup:TextResource Key=MenuHeader_Settings, GroupName=UITextResource, DefaultValue=Settings}">
+						<MenuItem.Icon>
+							<TextBlock
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								FontFamily="{DynamicResource Segoe Fluent Icons}"
+								FontSize="16"
+								Text="&#xE713;" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem Command="{Binding OpenAboutDialogCommand}" Header="{Markup:TextResource Key=MenuHeader_AboutXTool, GroupName=UITextResource, DefaultValue=About XTool}">
+						<MenuItem.Icon>
+							<TextBlock
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								FontFamily="{DynamicResource Segoe Fluent Icons}"
+								FontSize="16"
+								Text="&#xE946;" />
+						</MenuItem.Icon>
+					</MenuItem>
+				</MenuItem>
+			</Menu>
+		</Grid>
+		<Border
+			Grid.Row="1"
+			Grid.ColumnSpan="3"
+			MinHeight="40"
+			Margin="4"
+			Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+			BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+			BorderThickness="1"
+			CornerRadius="8">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid Width="240">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Margin="8,0"
+						VerticalAlignment="Center"
+						FontSize="14"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=Header_FilterRange,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Filter Range}" />
+					<TextBox
+						Grid.Column="1"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						Core:Attachable.CornerRadius="4"
+						FontWeight="Bold"
+						Foreground="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}"
+						IsReadOnly="True"
+						Text="{Binding FilterRangeAddress, FallbackValue=$A1$AZ380, Mode=OneWay}"
+						ToolTip="{Binding FilterRangeFullAddress}"
+						ToolTipService.InitialShowDelay="1000" />
+				</Grid>
+				<Grid
+					Grid.Column="1"
+					Margin="4,0"
+					DataContext="{Binding ConfigurationsManager}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Margin="8,0"
+						VerticalAlignment="Center"
+						FontSize="14"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=Header_FilterConfiguration,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Filter Configuration}" />
+					<TextBox
+						Grid.Column="1"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						Core:Attachable.CornerRadius="4"
+						FontWeight="Bold"
+						Foreground="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}"
+						IsReadOnly="True"
+						Text="{Binding CurrentDocumentPath, Mode=OneWay}"
+						ToolTip="{Binding CurrentDocumentPath, Mode=OneWay}"
+						ToolTipService.InitialShowDelay="1000" />
+					<StackPanel
+						Grid.Column="2"
+						Margin="4,0"
+						Orientation="Horizontal">
+						<Controls:BorderClipper
+							Height="28"
+							Margin="4,0"
+							VerticalAlignment="Center"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							IsChildClippingEnabled="True">
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding SaveCurrentConfigurationCommand}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_SaveCurrentConfiguration,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Save current configuration}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE74E;" />
+							</Button>
+						</Controls:BorderClipper>
+						<Border
+							Width="1"
+							Height="16"
+							Margin="2,0"
+							Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+						<Controls:BorderClipper
+							Height="28"
+							Margin="4,0"
+							VerticalAlignment="Center"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							IsChildClippingEnabled="True">
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding SaveCurrentConfigurationAsCommand}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_SaveCurrentConfigurationAs,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Save current configuration as}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE792;" />
+							</Button>
+						</Controls:BorderClipper>
+						<Border
+							Width="1"
+							Height="16"
+							Margin="2,0"
+							Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+						<Controls:BorderClipper
+							Height="28"
+							Margin="4,0"
+							VerticalAlignment="Center"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							IsChildClippingEnabled="True">
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding AddNewConfigurationCommand}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_AddNewConfiguration,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Add new configuration}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE82E;" />
+							</Button>
+						</Controls:BorderClipper>
+						<Border
+							Width="1"
+							Height="16"
+							Margin="2,0"
+							Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+						<Controls:BorderClipper
+							Height="28"
+							Margin="4,0"
+							VerticalAlignment="Center"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							IsChildClippingEnabled="True">
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding OpenConfigurationListDialogCommand}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_OpenConfigurationListDialog,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Open configuration list}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE8A7;" />
+							</Button>
+						</Controls:BorderClipper>
+					</StackPanel>
+				</Grid>
+				<Controls:BorderClipper
+					Grid.Column="2"
+					Height="28"
+					Margin="8,0"
+					VerticalAlignment="Center"
+					BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+					BorderThickness="1"
+					CornerRadius="4"
+					DataContext="{Binding ConfigurationsManager}"
+					IsChildClippingEnabled="True">
+					<Button
+						Width="28"
+						Padding="0"
+						BorderThickness="0"
+						Command="{Binding SubmitConfigurationCommand}"
+						Style="{DynamicResource DStyles.Button.Icon}"
+						ToolTip="{Markup:TextResource Key=ToolTip_SubmitConfiguration,
+						                              GroupName=UITextResource,
+						                              DefaultValue=Submit filter configuration}"
+						ToolTipService.InitialShowDelay="1000">
+						<TextBlock
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontFamily="{DynamicResource Segoe Fluent Icons}"
+							FontSize="16"
+							Text="&#xE724;" />
+					</Button>
+				</Controls:BorderClipper>
+			</Grid>
+
+		</Border>
+		<Controls:BorderClipper
+			Grid.Row="2"
+			Margin="4,0,0,4"
+			Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+			BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+			BorderThickness="1"
+			CornerRadius="8"
+			DataContext="{Binding FieldFiltersManager}"
+			IsChildClippingEnabled="True">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid Height="40">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Margin="8,0"
+						VerticalAlignment="Center"
+						FontSize="14"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=Header_FieldsList,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Fields List}" />
+					<Controls:BorderClipper
+						Grid.Column="1"
+						Height="28"
+						Margin="8,0"
+						VerticalAlignment="Center"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="4"
+						IsChildClippingEnabled="True">
+						<Button
+							Width="28"
+							Padding="0"
+							BorderThickness="0"
+							Command="{Binding AddFieldForFilterCommand}"
+							CommandParameter="{x:Static Core:SelectionOption.AllSelection}"
+							Style="{DynamicResource DStyles.Button.Icon}"
+							ToolTip="{Markup:TextResource Key=ToolTip_AddFieldsForFilterFromSelection,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Add selected fields into Filters List}"
+							ToolTipService.InitialShowDelay="1000">
+							<TextBlock
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								FontFamily="{DynamicResource Segoe Fluent Icons}"
+								FontSize="16"
+								Text="&#xE8B5;" />
+						</Button>
+					</Controls:BorderClipper>
+				</Grid>
+				<Border
+					Grid.Row="1"
+					Height="1"
+					Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+				<ListBox
+					Grid.Row="2"
+					Width="240"
+					Controls:Selectable.IsSelectionPerceptionEnabled="True"
+					Controls:Selectable.MultipleSelection="{Binding FieldSelection, Mode=OneWayToSource}"
+					Background="{DynamicResource DBrush.Container.Fill.Neutral.Primary.Normal}"
+					BorderThickness="0"
+					ItemContainerStyle="{DynamicResource DStyle.ListBoxItem.Indicated}"
+					ItemsSource="{Binding Fields}"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					SelectionMode="Extended"
+					VirtualizingPanel.VirtualizationMode="Recycling">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid MinHeight="36">
+								<TextBlock
+									x:Name="textContent"
+									Grid.Column="1"
+									Margin="4,0"
+									VerticalAlignment="Center"
+									Text="{Binding PresentingText}"
+									TextTrimming="CharacterEllipsis"
+									ToolTip="{Binding PresentingText}"
+									ToolTipService.InitialShowDelay="1000" />
+							</Grid>
+							<DataTemplate.Triggers>
+								<DataTrigger Binding="{Binding IsActived}" Value="True">
+									<Setter TargetName="textContent" Property="TextElement.FontWeight" Value="Bold" />
+									<Setter TargetName="textContent" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}" />
+								</DataTrigger>
+							</DataTemplate.Triggers>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</Controls:BorderClipper>
+		<Controls:BorderClipper
+			Grid.Row="2"
+			Grid.Column="1"
+			Margin="4,0,0,4"
+			Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+			BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+			BorderThickness="1"
+			CornerRadius="8"
+			DataContext="{Binding FieldFiltersManager}"
+			IsChildClippingEnabled="True">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid Height="40">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Margin="8,0"
+						VerticalAlignment="Center"
+						FontSize="14"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=Header_FiltersList,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Filters List}" />
+					<Controls:BorderClipper
+						Grid.Column="1"
+						Height="28"
+						Margin="8,0"
+						VerticalAlignment="Center"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="4"
+						IsChildClippingEnabled="True">
+						<StackPanel Orientation="Horizontal">
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding RemoveFieldForFilterCommand}"
+								CommandParameter="{x:Static Core:SelectionOption.AllSelection}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_RemoveFieldsForFilterFromSelection,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Remove selected fields from Filters List}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xEA52;" />
+							</Button>
+							<Border
+								Width="1"
+								Panel.ZIndex="1"
+								Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding ClearFilterFieldsCommand}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_ClearFieldsForFilter,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Clear all fields in Filters List}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE74D;" />
+							</Button>
+
+						</StackPanel>
+					</Controls:BorderClipper>
+				</Grid>
+				<Border
+					Grid.Row="1"
+					Height="1"
+					Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+				<ListBox
+					Grid.Row="2"
+					Grid.Column="1"
+					Width="240"
+					HorizontalContentAlignment="Stretch"
+					Controls:Selectable.IsSelectionPerceptionEnabled="True"
+					Controls:Selectable.MultipleSelection="{Binding FilterSelection, Mode=OneWayToSource}"
+					Background="{DynamicResource DBrush.Container.Fill.Neutral.Primary.Normal}"
+					BorderThickness="0"
+					ItemContainerStyle="{DynamicResource DStyle.ListBoxItem.Indicated}"
+					ItemsSource="{Binding}"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					SelectionMode="Extended"
+					VirtualizingPanel.VirtualizationMode="Recycling">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid MinHeight="36">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBlock
+									x:Name="textContent"
+									Margin="4,0"
+									VerticalAlignment="Center"
+									Text="{Binding PresentingText}"
+									TextTrimming="CharacterEllipsis"
+									ToolTip="{Binding PresentingText}"
+									ToolTipService.InitialShowDelay="1000" />
+								<Controls:BorderClipper
+									x:Name="btnCollection"
+									Grid.Column="1"
+									Height="28"
+									Margin="8,0"
+									VerticalAlignment="Center"
+									Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+									BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+									BorderThickness="1"
+									CornerRadius="4"
+									IsChildClippingEnabled="True"
+									Visibility="Collapsed">
+									<StackPanel Orientation="Horizontal">
+										<Button
+											Width="28"
+											Padding="0"
+											BorderThickness="0"
+											Command="{Binding DataContext.MoveUpFilterFieldCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}"
+											CommandParameter="{Binding}"
+											Style="{DynamicResource DStyles.Button.Icon}"
+											ToolTip="{Markup:TextResource Key=ToolTip_MoveFieldUp,
+											                              GroupName=UITextResource,
+											                              DefaultValue=Move up}"
+											ToolTipService.InitialShowDelay="1000">
+											<TextBlock
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												FontFamily="{DynamicResource Segoe Fluent Icons}"
+												FontSize="16"
+												Text="&#xE70E;" />
+										</Button>
+										<Border
+											Width="1"
+											Panel.ZIndex="1"
+											Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+										<Button
+											Width="28"
+											Padding="0"
+											BorderThickness="0"
+											Command="{Binding DataContext.MoveDownFilterFieldCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}"
+											CommandParameter="{Binding}"
+											Style="{DynamicResource DStyles.Button.Icon}"
+											ToolTip="{Markup:TextResource Key=ToolTip_MoveFieldDown,
+											                              GroupName=UITextResource,
+											                              DefaultValue=Move down}"
+											ToolTipService.InitialShowDelay="1000">
+											<TextBlock
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												FontFamily="{DynamicResource Segoe Fluent Icons}"
+												FontSize="16"
+												Text="&#xE70D;" />
+										</Button>
+									</StackPanel>
+								</Controls:BorderClipper>
+							</Grid>
+							<DataTemplate.Triggers>
+								<DataTrigger Binding="{Binding IsActived}" Value="True">
+									<Setter TargetName="textContent" Property="TextElement.FontWeight" Value="Bold" />
+									<Setter TargetName="textContent" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Accent.Primary.Normal}" />
+								</DataTrigger>
+								<DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+									<Setter TargetName="btnCollection" Property="Visibility" Value="Visible" />
+								</DataTrigger>
+							</DataTemplate.Triggers>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</Controls:BorderClipper>
+		<Controls:BorderClipper
+			Grid.Row="2"
+			Grid.Column="2"
+			Margin="4,0,4,4"
+			Background="{DynamicResource DBrush.Surface.Fill.Layer}"
+			BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+			BorderThickness="1"
+			CornerRadius="8"
+			DataContext="{Binding FieldFiltersManager}"
+			IsChildClippingEnabled="True">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid Height="40">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Margin="8,0"
+						VerticalAlignment="Center"
+						FontSize="14"
+						FontWeight="Bold"
+						Text="{Markup:TextResource Key=Header_CriteriaEditor,
+						                           GroupName=UITextResource,
+						                           DefaultValue=Criteria Editor}" />
+					<StackPanel
+						Grid.Column="1"
+						Height="28"
+						Margin="4,0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Orientation="Horizontal"
+						Visibility="{Binding HasCurrentCriterias, Converter={StaticResource boolToVisibleConverter}}">
+						<Controls:BorderClipper
+							Margin="4,0"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							DataContext="{Binding CurrentCriterias}"
+							IsChildClippingEnabled="True">
+							<!--  IsTextContentActived  -->
+							<ToggleButton
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								IsChecked="{Binding IsTextContentActived}"
+								ToolTip="{Markup:TextResource Key=ToolTip_SwitchCriteriasDisplayMode,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Switch criterias display mode (Text or List)}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="{Binding IsTextContentActived, Converter={StaticResource boolToCriteriaDisplayModeConverter}, FallbackValue=&#xEA37;}" />
+							</ToggleButton>
+						</Controls:BorderClipper>
+						<Border
+							Width="1"
+							Height="16"
+							Margin="2,0"
+							Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							DataContext="{Binding CurrentCriterias}"
+							Visibility="{Binding IsTextContentActived, Converter={StaticResource boolToVisibleReversedConverter}}" />
+						<Controls:BorderClipper
+							Grid.Column="1"
+							Margin="4,0"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							DataContext="{Binding CurrentCriterias}"
+							IsChildClippingEnabled="True"
+							Visibility="{Binding IsTextContentActived, Converter={StaticResource boolToVisibleReversedConverter}}">
+							<StackPanel Orientation="Horizontal">
+								<!--  AddNewItem  -->
+								<Button
+									Width="28"
+									Padding="0"
+									BorderThickness="0"
+									Command="{Binding AddNewItemCommand}"
+									Style="{DynamicResource DStyles.Button.Icon}"
+									ToolTip="{Markup:TextResource Key=ToolTip_AddNewCriteriaItem,
+									                              GroupName=UITextResource,
+									                              DefaultValue=Add new criteria item}"
+									ToolTipService.InitialShowDelay="1000">
+									<TextBlock
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										FontFamily="{DynamicResource Segoe Fluent Icons}"
+										FontSize="16"
+										Text="&#xECC8;" />
+								</Button>
+								<Border
+									Width="1"
+									Panel.ZIndex="1"
+									Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+								<!--  InsertNewItemBelow  -->
+								<Button
+									Width="28"
+									Padding="0"
+									BorderThickness="0"
+									Command="{Binding InsertNewItemBelowCommand}"
+									CommandParameter="{x:Static Core:SelectionOption.FirstSelection}"
+									Style="{DynamicResource DStyles.Button.Icon}"
+									ToolTip="{Markup:TextResource Key=ToolTip_InsertNewCriteriaItemBelowFromSelection,
+									                              GroupName=UITextResource,
+									                              DefaultValue=Insert new criteria item below the selected}"
+									ToolTipService.InitialShowDelay="1000">
+									<TextBlock
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										FontFamily="{DynamicResource Segoe Fluent Icons}"
+										FontSize="16"
+										Text="&#xED0E;" />
+								</Button>
+								<Border
+									Width="1"
+									Panel.ZIndex="1"
+									Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+								<!--  RemoveItems  -->
+								<Button
+									Width="28"
+									Padding="0"
+									BorderThickness="0"
+									Command="{Binding RemoveItemsCommand}"
+									CommandParameter="{x:Static Core:SelectionOption.AllSelection}"
+									Style="{DynamicResource DStyles.Button.Icon}"
+									ToolTip="{Markup:TextResource Key=ToolTip_RemoveCriteriaItemsFromSelection,
+									                              GroupName=UITextResource,
+									                              DefaultValue=Remove selected criteria items}"
+									ToolTipService.InitialShowDelay="1000">
+									<TextBlock
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										FontFamily="{DynamicResource Segoe Fluent Icons}"
+										FontSize="16"
+										Text="&#xECC9;" />
+								</Button>
+								<Border
+									Width="1"
+									Panel.ZIndex="1"
+									Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+								<!--  ClearItems  -->
+								<Button
+									Width="28"
+									Padding="0"
+									BorderThickness="0"
+									Command="{Binding ClearItemsCommand}"
+									Style="{DynamicResource DStyles.Button.Icon}"
+									ToolTip="{Markup:TextResource Key=ToolTip_ClearCriteriaItems,
+									                              GroupName=UITextResource,
+									                              DefaultValue=Clear all criteria items}"
+									ToolTipService.InitialShowDelay="1000">
+									<TextBlock
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										FontFamily="{DynamicResource Segoe Fluent Icons}"
+										FontSize="16"
+										Text="&#xE74D;" />
+								</Button>
+							</StackPanel>
+						</Controls:BorderClipper>
+						<Border
+							Width="1"
+							Height="16"
+							Margin="2,0"
+							Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+						<Controls:BorderClipper
+							Margin="4,0"
+							BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+							BorderThickness="1"
+							CornerRadius="4"
+							DataContext="{Binding CurrentCriterias}"
+							IsChildClippingEnabled="True">
+							<!--  CompleteChange  -->
+							<Button
+								Width="28"
+								Padding="0"
+								BorderThickness="0"
+								Command="{Binding CompleteChangeCommand}"
+								Style="{DynamicResource DStyles.Button.Icon}"
+								ToolTip="{Markup:TextResource Key=ToolTip_CompleteChanges,
+								                              GroupName=UITextResource,
+								                              DefaultValue=Complete the changes}"
+								ToolTipService.InitialShowDelay="1000">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE930;" />
+							</Button>
+						</Controls:BorderClipper>
+					</StackPanel>
+					<Controls:BorderClipper
+						Grid.Column="2"
+						Height="28"
+						Margin="8,0"
+						VerticalAlignment="Center"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="4"
+						IsChildClippingEnabled="True"
+						Visibility="{Binding CanAddCriteriasForFields, Converter={StaticResource boolToVisibleConverter}}">
+						<Button
+							Width="28"
+							Padding="0"
+							BorderThickness="0"
+							Command="{Binding AddCriteriasForFieldsCommand}"
+							Style="{DynamicResource DStyles.Button.Icon}"
+							ToolTip="{Markup:TextResource Key=ToolTip_AddCriteriasForFields,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Create criterias for selected fields}"
+							ToolTipService.InitialShowDelay="1000">
+							<TextBlock
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								FontFamily="{DynamicResource Segoe Fluent Icons}"
+								FontSize="16"
+								Text="&#xE710;" />
+						</Button>
+					</Controls:BorderClipper>
+					<Controls:BorderClipper
+						Grid.Column="2"
+						Height="28"
+						Margin="8,0"
+						VerticalAlignment="Center"
+						BorderBrush="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}"
+						BorderThickness="1"
+						CornerRadius="4"
+						IsChildClippingEnabled="True"
+						Visibility="{Binding CanAddCriteriasForFields, Converter={StaticResource boolToVisibleReversedConverter}}">
+						<Button
+							Width="28"
+							Padding="0"
+							BorderThickness="0"
+							Command="{Binding RemoveCriteriasForFieldsCommand}"
+							Style="{DynamicResource DStyles.Button.Icon}"
+							ToolTip="{Markup:TextResource Key=ToolTip_RemoveCriteriasForFields,
+							                              GroupName=UITextResource,
+							                              DefaultValue=Remove criterias of selected fields}"
+							ToolTipService.InitialShowDelay="1000">
+							<TextBlock
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								FontFamily="{DynamicResource Segoe Fluent Icons}"
+								FontSize="16"
+								Text="&#xE711;" />
+						</Button>
+					</Controls:BorderClipper>
+				</Grid>
+				<Border
+					Grid.Row="1"
+					Height="1"
+					Background="{DynamicResource DBrush.Container.Stroke.Neutral.Primary.Normal}" />
+				<ContentControl
+					Grid.Row="2"
+					Background="{DynamicResource DBrush.Container.Fill.Neutral.Primary.Normal}"
+					Content="{Binding CurrentCriterias}"
+					ContentTemplateSelector="{DynamicResource contentTemplateSelector}" />
+			</Grid>
+		</Controls:BorderClipper>
+		<Controls:MessageHost
+			Grid.RowSpan="3"
+			Grid.ColumnSpan="3"
+			Identifier="FilterAssistantWindowMessageHost" />
+	</Grid>
+</WinLib:DWindow>

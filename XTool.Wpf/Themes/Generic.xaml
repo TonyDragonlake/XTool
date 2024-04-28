@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/DWindow.xaml" />
+		<!--<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/MediaProgressBar.xaml"/>-->
+		<!--<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/MediaControl.xaml"/>-->
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/InfiniteProgress.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/ClippedContentControl.xaml" />
+		<!--<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/BoundaryFrame.xaml"/>-->
+		<!--<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/SelectableItemsControl.xaml"/>-->
+		<!--<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/ConnectorControl.xaml"/>-->
+		<!--<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/FlowItemsView.xaml"/>-->
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Themes/Controls/MessageHost.xaml" />
+
+	</ResourceDictionary.MergedDictionaries>
+
+
+
+
+</ResourceDictionary>

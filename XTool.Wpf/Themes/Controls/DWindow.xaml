@@ -1,0 +1,226 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Control="clr-namespace:FantaziaDesign.Wpf.Controls"
+	xmlns:DWinLib="clr-namespace:FantaziaDesign.Wpf.DWindowStyle">
+
+	<Style TargetType="{x:Type DWinLib:DWindow}">
+		<Setter Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Neutral.Primary.Normal}" />
+		<Setter Property="Background" Value="{DynamicResource DBrush.Surface.Fill.Solid}" />
+		<Setter Property="TextElement.Foreground" Value="{DynamicResource DBrush.Content.Fill.Neutral.Primary.Normal}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="DWinLib:DWindow">
+					<Control:SimplePanel Background="{TemplateBinding Background}">
+						<Control:SimplePanel
+							x:Name="titleBarHitTestRegion"
+							Height="32"
+							VerticalAlignment="Top"
+							DWinLib:DWindowNonClientManager.CaptionRole="Caption"
+							Background="Transparent">
+							<Grid
+								x:Name="winTitleRoot"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" MinWidth="2" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<Image Margin="2" Source="{TemplateBinding Icon}" />
+								<TextBlock
+									x:Name="titlePresenter"
+									Grid.Column="1"
+									Margin="5,0"
+									VerticalAlignment="Center"
+									FontSize="{TemplateBinding FontSize}"
+									FontWeight="Bold"
+									Foreground="{DynamicResource DBrush.Content.Fill.Neutral.Primary.Normal}"
+									Text="{TemplateBinding Title}" />
+							</Grid>
+						</Control:SimplePanel>
+						<Grid
+							x:Name="titleBarButtonPanel"
+							Height="32"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Top"
+							Panel.ZIndex="1"
+							IsHitTestVisible="True">
+							<FrameworkElement.Resources>
+								<Style x:Key="DWindowButtonStyle.Base" TargetType="{x:Type Button}">
+									<Setter Property="Width" Value="46" />
+									<Setter Property="BorderThickness" Value="0" />
+									<Setter Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Neutral.Primary.Normal}" />
+									<Setter Property="Background" Value="Transparent" />
+									<Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
+									<Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+									<Setter Property="Stylus.IsTapFeedbackEnabled" Value="True" />
+									<Setter Property="Stylus.IsTouchFeedbackEnabled" Value="True" />
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="{x:Type Button}">
+												<Grid
+													x:Name="overBorder"
+													Margin="0,1,0,0"
+													Background="{TemplateBinding Background}">
+													<Rectangle
+														x:Name="background"
+														Fill="#FFB0B0B0"
+														Opacity="0" />
+													<Path
+														x:Name="icon"
+														HorizontalAlignment="Center"
+														VerticalAlignment="Center"
+														Data="{TemplateBinding Content}"
+														Fill="{TemplateBinding Foreground}"
+														SnapsToDevicePixels="True"
+														UseLayoutRounding="True" />
+												</Grid>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Setter TargetName="background" Property="Opacity" Value="0.35" />
+													</Trigger>
+													<MultiTrigger>
+														<MultiTrigger.Conditions>
+															<Condition Property="IsPressed" Value="True" />
+															<Condition Property="AreAnyTouchesOver" Value="False" />
+														</MultiTrigger.Conditions>
+														<Setter TargetName="background" Property="Opacity" Value="0.65" />
+													</MultiTrigger>
+													<MultiTrigger>
+														<MultiTrigger.Conditions>
+															<Condition Property="IsPressed" Value="True" />
+															<Condition Property="AreAnyTouchesOver" Value="True" />
+														</MultiTrigger.Conditions>
+														<Setter TargetName="background" Property="Opacity" Value="0.65" />
+													</MultiTrigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+								<Style
+									x:Key="DWindowButtonStyle.Close"
+									BasedOn="{StaticResource DWindowButtonStyle.Base}"
+									TargetType="Button">
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="Button">
+												<Grid
+													x:Name="overBorder"
+													Margin="0,1,0,0"
+													Background="{TemplateBinding Background}">
+													<Rectangle
+														x:Name="background"
+														Fill="#FFE81123"
+														Opacity="0" />
+													<Path
+														x:Name="icon"
+														HorizontalAlignment="Center"
+														VerticalAlignment="Center"
+														Data="{TemplateBinding Content}"
+														Fill="{TemplateBinding Foreground}"
+														SnapsToDevicePixels="True"
+														UseLayoutRounding="True" />
+												</Grid>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Setter Property="Foreground" Value="White" />
+														<Setter TargetName="background" Property="Opacity" Value="1" />
+													</Trigger>
+													<MultiTrigger>
+														<MultiTrigger.Conditions>
+															<Condition Property="IsPressed" Value="True" />
+															<Condition Property="AreAnyTouchesOver" Value="False" />
+														</MultiTrigger.Conditions>
+														<Setter TargetName="background" Property="Opacity" Value="0.65" />
+													</MultiTrigger>
+													<MultiTrigger>
+														<MultiTrigger.Conditions>
+															<Condition Property="IsPressed" Value="True" />
+															<Condition Property="AreAnyTouchesOver" Value="True" />
+														</MultiTrigger.Conditions>
+														<Setter TargetName="background" Property="Opacity" Value="0.65" />
+													</MultiTrigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</FrameworkElement.Resources>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<DWinLib:DWindowButton
+								x:Name="PART_MinimizeButton"
+								CaptionRole="Minimize"
+								Content="{x:Static DWinLib:DWindowStyleHelper.DefaultMinimizeGeometry}"
+								Style="{StaticResource DWindowButtonStyle.Base}" />
+							<DWinLib:DWindowButton
+								x:Name="PART_RestoreButton"
+								Grid.Column="1"
+								CaptionRole="Restore"
+								Content="{x:Static DWinLib:DWindowStyleHelper.DefaultRestoreGeometry}"
+								Style="{StaticResource DWindowButtonStyle.Base}" />
+							<DWinLib:DWindowButton
+								x:Name="PART_MaximizeButton"
+								Grid.Column="1"
+								CaptionRole="Maximize"
+								Content="{x:Static DWinLib:DWindowStyleHelper.DefaultMaximizeGeometry}"
+								Style="{StaticResource DWindowButtonStyle.Base}" />
+							<DWinLib:DWindowButton
+								x:Name="PART_CloseButton"
+								Grid.Column="2"
+								CaptionRole="Close"
+								Content="{x:Static DWinLib:DWindowStyleHelper.DefaultCloseGeometry}"
+								Style="{StaticResource DWindowButtonStyle.Close}" />
+						</Grid>
+						<AdornerDecorator>
+							<ContentPresenter x:Name="content" />
+						</AdornerDecorator>
+						<Border
+							x:Name="winBorder"
+							Panel.ZIndex="1"
+							BorderBrush="{Binding DWindowBorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+							BorderThickness="0,1,0,0"
+							Opacity="0.9" />
+					</Control:SimplePanel>
+					<ControlTemplate.Triggers>
+						<Trigger Property="DWinLib:DWindowStyleHelper.EnableUserDefineWindowTitle" Value="True">
+							<Setter TargetName="winTitleRoot" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<Trigger Property="DWindowBorderStyle" Value="Frame">
+							<Setter TargetName="winBorder" Property="BorderThickness" Value="1" />
+						</Trigger>
+						<Trigger Property="DWindowBorderStyle" Value="None">
+							<Setter TargetName="winBorder" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<Trigger Property="WindowState" Value="Maximized">
+							<Setter TargetName="PART_MaximizeButton" Property="Visibility" Value="Collapsed" />
+							<Setter TargetName="winBorder" Property="Opacity" Value="0" />
+						</Trigger>
+						<Trigger Property="WindowState" Value="Normal">
+							<Setter TargetName="PART_RestoreButton" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<Trigger Property="IsMinimizeActionEnabled" Value="False">
+							<Setter TargetName="PART_MinimizeButton" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<Trigger Property="IsZoomingActionEnabled" Value="False">
+							<Setter TargetName="PART_RestoreButton" Property="Visibility" Value="Collapsed" />
+							<Setter TargetName="PART_MaximizeButton" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<Trigger Property="IsActive" Value="False">
+							<Setter TargetName="PART_MinimizeButton" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Disabled}" />
+							<Setter TargetName="PART_RestoreButton" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Disabled}" />
+							<Setter TargetName="PART_MaximizeButton" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Disabled}" />
+							<Setter TargetName="PART_CloseButton" Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Disabled}" />
+							<Setter Property="Foreground" Value="{DynamicResource DBrush.Content.Fill.Disabled}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

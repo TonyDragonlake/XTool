@@ -1,0 +1,91 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/ButtonStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/ToggleButtonStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/RepeatButtonStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/ListBoxStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/TextBoxStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/ComboBoxStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/MenuStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/ScrollViewerStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/ToolTipStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/TreeViewStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/GridSplitterStyle.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/XTool.Wpf;component/Styles/SliderStyle.xaml" />
+
+	</ResourceDictionary.MergedDictionaries>
+	<Style
+		x:Key="{x:Type Button}"
+		BasedOn="{StaticResource DStyles.Button.Base}"
+		TargetType="{x:Type ButtonBase}" />
+	<Style
+		x:Key="{x:Type CheckBox}"
+		BasedOn="{StaticResource DStyle.CheckBox.Base}"
+		TargetType="{x:Type CheckBox}" />
+	<Style
+		x:Key="{x:Type MenuItem}"
+		BasedOn="{StaticResource DStyle.MenuItem.Base}"
+		TargetType="{x:Type MenuItem}" />
+	<Style
+		x:Key="{x:Type ContextMenu}"
+		BasedOn="{StaticResource DStyle.ContextMenu.Base}"
+		TargetType="{x:Type ContextMenu}" />
+	<Style
+		x:Key="{x:Type Menu}"
+		BasedOn="{StaticResource DStyle.Menu.Base}"
+		TargetType="{x:Type Menu}" />
+	<Style
+		x:Key="{x:Type ScrollBar}"
+		BasedOn="{StaticResource DStyle.ScrollBar.Base}"
+		TargetType="{x:Type ScrollBar}" />
+	<Style
+		x:Key="{x:Type ScrollViewer}"
+		BasedOn="{StaticResource DStyle.ScrollViewer.Base}"
+		TargetType="{x:Type ScrollViewer}" />
+	<Style
+		x:Key="{x:Type Slider}"
+		BasedOn="{StaticResource DStyle.Slider.Base}"
+		TargetType="{x:Type Slider}" />
+	<Style
+		x:Key="{x:Type ToolTip}"
+		BasedOn="{StaticResource DStyle.ToolTip.Base}"
+		TargetType="{x:Type ToolTip}" />
+	<Style
+		x:Key="{x:Type ComboBox}"
+		BasedOn="{StaticResource DStyle.ComboBox.Base}"
+		TargetType="{x:Type ComboBox}" />
+	<Style
+		x:Key="{x:Type ToggleButton}"
+		BasedOn="{StaticResource DStyles.ToggleButton.Base}"
+		TargetType="{x:Type ToggleButton}" />
+	<Style
+		x:Key="{x:Type ListBox}"
+		BasedOn="{StaticResource DStyle.ListBox.Base}"
+		TargetType="{x:Type ListBox}" />
+	<Style
+		x:Key="{x:Type ListView}"
+		BasedOn="{StaticResource DStyle.ListView.Base}"
+		TargetType="{x:Type ListView}" />
+	<Style
+		x:Key="{x:Type TreeViewItem}"
+		BasedOn="{StaticResource DStyles.TreeViewItem.Base}"
+		TargetType="{x:Type TreeViewItem}" />
+	<Style
+		x:Key="{x:Type TreeView}"
+		BasedOn="{StaticResource DStyles.TreeView.Base}"
+		TargetType="{x:Type TreeView}" />
+	<Style
+		x:Key="{x:Type GridSplitter}"
+		BasedOn="{StaticResource DStyles.GridSplitter.Base}"
+		TargetType="{x:Type GridSplitter}" />
+	<Style
+		x:Key="{x:Type TextBox}"
+		BasedOn="{StaticResource DStyle.TextBox.Base}"
+		TargetType="{x:Type TextBox}" />
+	<Style
+		x:Key="{x:Type DataGrid}"
+		BasedOn="{StaticResource DStyle.DataGrid.Base}"
+		TargetType="{x:Type DataGrid}" />
+
+</ResourceDictionary>
