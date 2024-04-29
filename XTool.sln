@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTool.Excel", "XTool.Excel\XTool.Excel.csproj", "{7CA101F1-68CD-4CB8-844E-CBFD6B8FDE5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XTool.Wpf", "XTool.Wpf\XTool.Wpf.csproj", "{4FC3A451-8166-41E8-AB3A-6BE53FFFFDAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XTool.Wpf", "XTool.Wpf\XTool.Wpf.csproj", "{4FC3A451-8166-41E8-AB3A-6BE53FFFFDAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

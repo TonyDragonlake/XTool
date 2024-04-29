@@ -270,7 +270,10 @@ namespace FantaziaDesign.Wpf.DWindowStyle
 			if (m_borderStyle != borderStyle)
 			{
 				m_borderStyle = borderStyle;
-				Dwmapi.DwmExtendFrameIntoClientArea(m_hWnd, UsingSystemFrame ? FlattenMargin : ShadowMargin);
+				if (!UsingSystemFrame)
+				{
+					Dwmapi.DwmExtendFrameIntoClientArea(m_hWnd, ShadowMargin);
+				}
 			}
 		}
 
