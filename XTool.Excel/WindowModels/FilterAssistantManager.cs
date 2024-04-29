@@ -72,7 +72,7 @@ namespace XTool.Excel.WindowModels
 		private async Task OnOpenSettingsDialog(CancellationToken token)
 		{
 			await MessageCenter.Show("FilterAssistantWindowMessageHost",
-				new SettingConfigurationsDialog()
+				new SettingConfigurationsDialog(AppSettings.SettingData)
 				{
 					CloseOnClickAway = true,
 					MaskOpacity = 0.5,
@@ -350,6 +350,7 @@ namespace XTool.Excel.WindowModels
 			m_view = null;
 			m_configurationsManager.Save();
 			m_configurationsManager.ResetCurrentDocument();
+			AppSettings.SyncToFile();
 		}
 
 		protected virtual void Dispose(bool disposing)

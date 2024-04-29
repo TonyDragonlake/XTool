@@ -13,6 +13,11 @@ namespace FantaziaDesign.Resourcable
 	{
 		public static readonly LanguagePackageManager Current = new LanguagePackageManager();
 
+		public static string LcidToCultureName(int lcid)
+		{
+			return CultureInfo.GetCultureInfo(lcid).Name;
+		}
+
 		private long m_uId;
 		private LanguagePackage m_currentPkg;
 		private Dictionary<string, LanguagePackage> m_pkgDict;
@@ -129,8 +134,7 @@ namespace FantaziaDesign.Resourcable
 
 		public bool TrySelectLanguage(int lcid)
 		{
-			var culture = CultureInfo.GetCultureInfo(lcid);
-			return TrySelectLanguage(culture.Name);
+			return TrySelectLanguage(LcidToCultureName(lcid));
 		}
 
 		public string ProvideResource(string txtKey, string defaultText = null)

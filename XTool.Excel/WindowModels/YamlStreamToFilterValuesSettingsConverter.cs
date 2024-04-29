@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using FantaziaDesign.Core;
 using YamlDotNet.Serialization;
+using System;
 
 namespace XTool.Excel.WindowModels
 {

@@ -499,7 +499,15 @@
 								Margin="4"
 								IsChecked="{Binding IsUsingLightTheme}"
 								IsEnabled="{Binding IsFollowingSystemTheme, Converter={StaticResource boolToReversedBooleanConverter}}"
-								Style="{DynamicResource DStyles.ToggleButton.Switch}" />
+								Style="{DynamicResource DStyles.ToggleButton.Switch}">
+								<TextBlock
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="{DynamicResource Segoe Fluent Icons}"
+									FontSize="16"
+									Text="&#xE72E;"
+									Visibility="{Binding IsFollowingSystemTheme, Converter={StaticResource boolToVisibleWithPlaceholderConverter}}" />
+							</ToggleButton>
 							<Border
 								Grid.Row="3"
 								Grid.ColumnSpan="2"

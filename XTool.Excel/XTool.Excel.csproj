@@ -198,7 +198,7 @@
     <Compile Include="ResourceModels\UITextResource.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="WindowModels\AboutInformationDialog.cs" />
-    <Compile Include="WindowModels\AppTheme.cs" />
+    <Compile Include="WindowModels\AppSettings.cs" />
     <Compile Include="WindowModels\CriteriaItem.cs" />
     <Compile Include="WindowModels\CriteriaItemsContainer.cs" />
     <Compile Include="WindowModels\FieldFiltersManager.cs" />
@@ -226,6 +226,7 @@
     <Compile Include="WindowModels\IFilterValuesSetting.cs" />
     <Compile Include="WindowModels\SettingConfigurationsDialog.cs" />
     <Compile Include="WindowModels\YamlStreamToFilterValuesSettingsConverter.cs" />
+    <Compile Include="WindowModels\YamlStreamToTypedObjectConverter.cs" />
     <Compile Include="XResourceManager.cs" />
     <Compile Include="Windows\XToolApp.xaml.cs">
       <DependentUpon>XToolApp.xaml</DependentUpon>

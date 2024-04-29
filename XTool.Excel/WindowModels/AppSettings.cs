@@ -1,13 +1,88 @@
-﻿using FantaziaDesign.Theme;
+﻿using FantaziaDesign.Core;
+using FantaziaDesign.Resourcable;
+using FantaziaDesign.Theme;
 using FantaziaDesign.Wpf.Theme;
+using System;
+using System.IO;
 using System.Linq;
 
 namespace XTool.Excel.WindowModels
 {
-	internal static class AppTheme
+	public class AppSettingData : IDeepCopyable<AppSettingData>, IEquatable<AppSettingData>
 	{
-		private static bool m_isAppThemeInitialized;
+		private bool m_isFollowingSystemTheme;
+		private bool m_isUsingLightTheme = true;
+		private string m_currentLanguage;
 
+		public bool IsFollowingSystemTheme { get => m_isFollowingSystemTheme; set => m_isFollowingSystemTheme = value; }
+		public bool IsUsingLightTheme { get => m_isUsingLightTheme; set => m_isUsingLightTheme = value; }
+		public string CurrentLanguage { get => m_currentLanguage; set => m_currentLanguage = value; }
+
+		public object Clone()
+		{
+			return DeepCopy();
+		}
+
+		public AppSettingData DeepCopy()
+		{
+			return new AppSettingData()
+			{
+				m_isFollowingSystemTheme = m_isFollowingSystemTheme,
+				m_isUsingLightTheme = m_isUsingLightTheme,
+				m_currentLanguage = m_currentLanguage,
+			};
+		}
+
+		public void DeepCopyValueFrom(AppSettingData obj)
+		{
+			if (obj is null)
+			{
+				return;
+			}
+
+			m_isFollowingSystemTheme = obj.m_isFollowingSystemTheme;
+			m_isUsingLightTheme = obj.m_isUsingLightTheme;
+			m_currentLanguage = obj.m_currentLanguage;
+		}
+
+		public bool Equals(AppSettingData other)
+		{
+			if (other is null)
+			{
+				return false;
+			}
+
+			return m_isFollowingSystemTheme == other.m_isFollowingSystemTheme
+				&& m_isUsingLightTheme == other.m_isUsingLightTheme
+				&& string.Equals(m_currentLanguage, other.m_currentLanguage, StringComparison.OrdinalIgnoreCase);
+		}
+
+		public int QueryCurrentLanguageIndex()
+		{
+			return LanguagePackageManager.Current.PackageNames.IndexOf(m_currentLanguage);
+		}
+
+		public bool TryUpdateCurrentLanguageIndex(int index)
+		{
+			var pkgNames = LanguagePackageManager.Current.PackageNames;
+			if (0 <= index && index < pkgNames.Count)
+			{
+				var selectedName = pkgNames[index];
+				if (!string.Equals(m_currentLanguage, selectedName, System.StringComparison.OrdinalIgnoreCase))
+				{
+					m_currentLanguage = selectedName;
+					return true;
+				}
+			}
+			return false;
+		}
+
+	}
+
+
+	public static class AppSettings
+	{
+		private static bool s_isInitialized;
 
 		private static ThemeContent defaultLightThemeDict
 			= new ThemeContent("XTool#DefaultLightModeTheme", ThemeType.LightMode)
@@ -107,20 +182,118 @@ namespace XTool.Excel.WindowModels
 				ThemeColor.FromColorUInt("DColor.Content.Fill.Accent.Primary.Normal"                ,0xFFFFE697)
 			};
 
-		public static void InitializeDefaultTheme()
+		private static AppSettingData s_settingData;
+		private static AppSettingData s_settingDataFileCache;
+
+		private static YamlStreamToTypedObjectConverter<AppSettingData> s_converter = new YamlStreamToTypedObjectConverter<AppSettingData>();
+
+		public static AppSettingData SettingData => s_settingData?.DeepCopy();
+
+		public static AppSettingData SettingDataCache => s_settingData;
+
+		private const string SettingsFileName = "application.settings.yaml";
+
+		public static string SettingsFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SettingsFileName);
+
+		public static void Initialize()
 		{
-			if (m_isAppThemeInitialized)
+			if (s_isInitialized)
 			{
 				return;
 			}
 
+			// theme setting
 			ThemeManager.Current.SetDefaultThemeFromContent(defaultLightThemeDict);
 			var themeInfo = defaultLightThemeDict.ThemeInfo;
 			ThemeManager.Current.SetThemeBrushKeywords(themeInfo.ThemeBrushes?.Select(brush => brush.Key));
 			ThemeManager.Current.SetThemeColorKeywords(themeInfo.ThemeColors?.Select(color => color.Key));
 			ThemeManager.Current.SetDefaultThemeFromContent(defaultDarkThemeDict);
-			ThemeManager.Current.DependOnSystemTheme = true;
-			m_isAppThemeInitialized = true;
+
+			// language setting
+			var langPkgMgr = LanguagePackageManager.Current;
+			langPkgMgr.TryLoadLanguagePackage(
+				XResourceManager.GetAddInUIResource("XTool.Excel.Assets.Language.lang_en-US.xml"),
+				XResourceManager.LanguagePackageStringParser);
+			langPkgMgr.TryLoadLanguagePackage(
+				XResourceManager.GetAddInUIResource("XTool.Excel.Assets.Language.lang_zh-CN.xml"),
+				XResourceManager.LanguagePackageStringParser);
+			// read setting object
+			s_settingData = ReadAppSettingData();
+			if (s_settingData is null)
+			{
+				s_settingData = new AppSettingData();
+			}
+			else
+			{
+				s_settingDataFileCache = s_settingData.DeepCopy();
+			}
+			s_isInitialized = true;
+		}
+
+		public static void AcceptSettings(AppSettingData settingData)
+		{
+			s_settingData.DeepCopyValueFrom(settingData);
+		}
+
+		public static void Apply()
+		{
+			if (s_isInitialized)
+			{
+				var isFollowSystemTheme = s_settingData.IsFollowingSystemTheme;
+				ThemeManager.Current.DependOnSystemTheme = isFollowSystemTheme;
+				if (!isFollowSystemTheme)
+				{
+					bool isLightTheme = ThemeManager.Current.CurrentThemeType == ThemeType.LightMode;
+					if (s_settingData.IsUsingLightTheme != isLightTheme)
+					{
+						ThemeManager.Current.ApplyCurrentTheme(s_settingData.IsUsingLightTheme ? ThemeType.LightMode : ThemeType.DarkMode);
+					}
+				}
+				var nowPkgName = s_settingData.CurrentLanguage;
+				var currentPkgName = LanguagePackageManager.Current.CurrentPackageName;
+				if (!string.Equals(currentPkgName, nowPkgName, StringComparison.OrdinalIgnoreCase))
+				{
+					LanguagePackageManager.Current.TrySelectLanguage(nowPkgName);
+				}
+			}
+		}
+
+		private static AppSettingData ReadAppSettingData()
+		{
+			var filePath = SettingsFilePath;
+			if (File.Exists(filePath))
+			{
+				MemoryStream memoryStream = new MemoryStream();
+				using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+				{
+					fileStream.CopyTo(memoryStream);
+				}
+				if (memoryStream.Length > 0)
+				{
+					memoryStream.Seek(0, SeekOrigin.Begin);
+					return s_converter.ConvertTo(memoryStream);
+				}
+			}
+			return null;
+		}
+
+		public static void SyncToFile()
+		{
+			if (s_settingDataFileCache is null || !s_settingDataFileCache.Equals(s_settingData))
+			{
+				s_settingDataFileCache = s_settingData.DeepCopy();
+				var m_fileInfo = new FileInfo(SettingsFilePath);
+				using (var fileStream = m_fileInfo.Open(FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write))
+				{
+					using (var tempStream = s_converter.ConvertBack(s_settingDataFileCache))
+					{
+						fileStream.Seek(0, SeekOrigin.Begin);
+						fileStream.SetLength(0);
+						tempStream.CopyTo(fileStream);
+						fileStream.Flush(true);
+					}
+				}
+			}
 		}
 	}
 }

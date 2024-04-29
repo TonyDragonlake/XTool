@@ -20,22 +20,13 @@ namespace XTool.Excel
 
 		public string GetCustomUI(string ribbonID)
 		{
-			InitializeLanguageSettings();
+			AppSettings.Initialize();
+			AppSettings.SettingDataCache.CurrentLanguage = LanguagePackageManager.LcidToCultureName(
+				Globals.ThisAddIn.Application.LanguageSettings.LanguageID[MsoAppLanguageID.msoLanguageIDUI]
+				);
+			AppSettings.Apply();
 			ResourceNotifierFactories.RegisterFactory(UITextResource.Factory);
 			return XResourceManager.GetAddInUIResource("XTool.Excel.AddInUI.xml");
-		}
-
-		private static void InitializeLanguageSettings()
-		{
-			var langPkgMgr = LanguagePackageManager.Current;
-			langPkgMgr.TryLoadLanguagePackage(
-				XResourceManager.GetAddInUIResource("XTool.Excel.Assets.Language.lang_en-US.xml"), 
-				XResourceManager.LanguagePackageStringParser);
-			langPkgMgr.TryLoadLanguagePackage(
-				XResourceManager.GetAddInUIResource("XTool.Excel.Assets.Language.lang_zh-CN.xml"), 
-				XResourceManager.LanguagePackageStringParser);
-			var lcid = Globals.ThisAddIn.Application.LanguageSettings.LanguageID[MsoAppLanguageID.msoLanguageIDUI];
-			langPkgMgr.TrySelectLanguage(lcid);
 		}
 
 		public void OnAddInUILoad(IRibbonUI ribbonUI)

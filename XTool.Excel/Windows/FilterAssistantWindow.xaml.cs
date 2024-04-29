@@ -8,7 +8,6 @@ namespace XTool.Windows
 		public FilterAssistantWindow()
 		{
 			InitializeComponent();
-			AppTheme.InitializeDefaultTheme();
 		}
 	}
 }
